@@ -1,215 +1,104 @@
 # 🚀 RAG Docker Azure Pipeline
 
-<div align="center">
+### AI-Powered Retrieval-Augmented Generation (RAG) Application
 
-### Intelligent Document Question Answering System
+An end-to-end **Retrieval-Augmented Generation (RAG) Pipeline** built using Python, FastAPI, LangChain, Vector Databases, Docker, and Microsoft Azure.
 
-**Transform your PDF documents into an AI-powered knowledge assistant.**
-
-A modular Retrieval-Augmented Generation (RAG) application built with Python, FastAPI, LangChain, Vector Database, Docker and Microsoft Azure.
-
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi)
-![LangChain](https://img.shields.io/badge/LangChain-RAG-green)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker)
-![Azure](https://img.shields.io/badge/Microsoft-Azure-0078D4?logo=microsoftazure)
-![Status](https://img.shields.io/badge/Project-RAG%20Pipeline-purple)
-
-</div>
+This project demonstrates how to build a modular RAG application that processes documents, generates embeddings, stores vector representations, retrieves relevant information, and generates context-aware AI responses.
 
 ---
 
-## 📌 Overview
+## 🌟 Key Features
 
-RAG Docker Azure Pipeline is an end-to-end Retrieval-Augmented Generation application designed to retrieve relevant information from documents and generate context-aware AI responses.
+- 📄 **Document Loading:** Load and process PDF documents.
+- ✂️ **Text Splitting:** Split documents into manageable chunks with configurable overlap.
+- 🧠 **Embeddings:** Convert text into vector representations.
+- 🗄️ **Vector Database:** Store and retrieve document embeddings.
+- 🔍 **Semantic Search:** Retrieve relevant document chunks based on user queries.
+- 🤖 **AI Response Generation:** Generate context-aware responses using retrieved information.
+- ⚡ **FastAPI:** Expose the RAG pipeline through API endpoints.
+- 🐳 **Docker:** Containerize the application for consistent deployment.
+- ☁️ **Azure Deployment:** Docker-based deployment configuration for Microsoft Azure.
 
-Instead of relying only on an LLM's pre-trained knowledge, this system retrieves relevant document content and uses it as context to generate answers.
+## 🏗️ Project Architecture
 
-**The project follows a modular architecture**, separating document loading, text splitting, embeddings, vector storage, retrieval and response generation.
-
-## ✨ Key Features
-
-| Feature | Description |
-|---|---|
-| 📄 Document Loading | Load PDF documents |
-| ✂️ Text Splitting | Split documents into chunks |
-| 🧠 Embeddings | Convert text into numerical vectors |
-| 🗄️ Vector Storage | Store document embeddings |
-| 🔍 Semantic Retrieval | Retrieve relevant document chunks |
-| 🤖 AI Generation | Generate context-aware answers |
-| ⚡ FastAPI | Backend API integration |
-| 🐳 Docker | Application containerization |
-| ☁️ Azure | Cloud deployment preparation |
-
----
-
-# 🏗️ System Architecture
-
-## 1. Complete RAG Architecture
-
-```mermaid
-flowchart TB
-    A["📄 PDF Documents"] --> B["Document Loader"]
-    B --> C["Text Splitter"]
-    C --> D["Embedding Model"]
-    D --> E[("Vector Database")]
-
-    U["👤 User Query"] --> API["FastAPI Application"]
-    API --> Q["Query Embedding"]
-    Q --> E
-    E --> R["Relevant Document Retrieval"]
-    R --> CTX["Context Preparation"]
-    CTX --> LLM["Large Language Model"]
-    U --> LLM
-    LLM --> ANS["💬 Generated Answer"]
-
-    style A fill:#2563eb,color:#fff
-    style E fill:#0f766e,color:#fff
-    style LLM fill:#7c3aed,color:#fff
-    style ANS fill:#15803d,color:#fff
+```text
+User Query
+    |
+    v
+FastAPI Application
+    |
+    v
+RAG Pipeline
+    |
+    v
+Query Embeddings
+    |
+    v
+Vector Database
+    |
+    v
+Document Retrieval
+    |
+    v
+Context + User Query
+    |
+    v
+LLM Response Generation
+    |
+    v
+Final Answer
 ```
 
-## 2. Document Ingestion Pipeline
-
-This workflow converts raw documents into searchable vector representations.
-
-```mermaid
-flowchart LR
-    A["PDF Upload"] --> B["PDF Loader"]
-    B --> C["Extract Text"]
-    C --> D["Text Chunking"]
-    D --> E["Generate Embeddings"]
-    E --> F[("Vector Database")]
-    F --> G["Documents Indexed"]
-
-    style A fill:#2563eb,color:#fff
-    style F fill:#0f766e,color:#fff
-    style G fill:#15803d,color:#fff
-```
-
-## 3. Query Processing Pipeline
-
-```mermaid
-flowchart TD
-    A["User Question"] --> B["FastAPI"]
-    B --> C["Generate Query Embedding"]
-    C --> D["Similarity Search"]
-    D --> E["Retrieve Relevant Chunks"]
-    E --> F["Build Prompt with Context"]
-    F --> G["LLM Response"]
-    G --> H["Final Answer"]
-
-    style A fill:#2563eb,color:#fff
-    style D fill:#0f766e,color:#fff
-    style G fill:#7c3aed,color:#fff
-    style H fill:#15803d,color:#fff
-```
-
----
-
-# 🐳 Docker Architecture
-
-The application is packaged inside a Docker container to provide a consistent runtime environment.
-
-```mermaid
-flowchart TB
-    A["Python Application"] --> B["Dockerfile"]
-    B --> C["Docker Image"]
-    C --> D["Docker Container"]
-    D --> E["Uvicorn Server"]
-    E --> F["FastAPI Application"]
-    F --> G["Port 8000"]
-    G --> H["API Documentation"]
-
-    style C fill:#2496ed,color:#fff
-    style D fill:#0f766e,color:#fff
-    style F fill:#009688,color:#fff
-```
-
-## ☁️ Azure Deployment Architecture
-
-```mermaid
-flowchart LR
-    A["Local Development"] --> B["Docker Build"]
-    B --> C["Docker Image"]
-    C --> D["Azure Container Registry"]
-    D --> E["Azure Container Apps / App Service"]
-    E --> F["Public Application Endpoint"]
-
-    style C fill:#2496ed,color:#fff
-    style D fill:#0078d4,color:#fff
-    style E fill:#0078d4,color:#fff
-    style F fill:#15803d,color:#fff
-```
-
----
-
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```text
 RAG_Docker_Azure_Pipeline/
 │
-├── data/
-│   └── Document Storage
+├── data/                 # Document storage
+├── embeddings/           # Embedding modules
+├── generators/           # LLM response generation
+├── loaders/              # Document loading modules
+├── splitters/            # Text splitting modules
+├── static/               # Static assets
+├── templates/            # HTML templates
+├── vectorstores/         # Vector database modules
 │
-├── embeddings/
-│   └── Embedding Generation
-│
-├── generators/
-│   └── LLM Response Generation
-│
-├── loaders/
-│   └── PDF Document Loading
-│
-├── splitters/
-│   └── Text Chunking
-│
-├── vectorstores/
-│   └── Vector Database Integration
-│
-├── static/
-│   └── Static Assets
-│
-├── templates/
-│   └── HTML Templates
-│
-├── config.py
-├── main.py
-├── pipeline.py
-├── requirements.txt
-├── Dockerfile
-└── README.md
+├── config.py             # Application configuration
+├── main.py               # FastAPI application entry point
+├── pipeline.py           # RAG pipeline implementation
+├── requirements.txt      # Python dependencies
+├── Dockerfile            # Docker configuration
+└── README.md             # Project documentation
 ```
 
----
+## 🛠️ Tech Stack
 
-# 🛠️ Technology Stack
-
-| Technology | Usage |
+| Technology | Purpose |
 |---|---|
-| Python 3.11 | Core development |
+| Python | Core programming |
+| FastAPI | Backend API |
 | LangChain | RAG orchestration |
-| FastAPI | Backend development |
-| Uvicorn | ASGI server |
-| Embedding Models | Text vectorization |
-| Vector Database | Similarity search |
-| LLM | Response generation |
+| Embeddings | Text vectorization |
+| Vector Database | Vector storage and retrieval |
+| LLM | AI response generation |
 | Docker | Containerization |
 | Microsoft Azure | Cloud deployment |
-| Mermaid | Architecture visualization |
+| Uvicorn | ASGI server |
 
----
+## ⚙️ Installation & Setup
 
-# ⚙️ Installation & Setup
-
-### Step 1 — Clone Repository
+### 1. Clone the Repository
 
 ```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
+```
+
+```bash
 cd RAG_Docker_Azure_Pipeline
 ```
 
-### Step 2 — Create Virtual Environment
+### 2. Create Virtual Environment
 
 ```bash
 python -m venv venv
@@ -221,35 +110,31 @@ Activate on Windows:
 venv\Scripts\activate
 ```
 
-### Step 3 — Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4 — Configure Environment Variables
+### 4. Configure Environment Variables
 
-Create a `.env` file in the root directory.
+Create a `.env` file in the project root and add the API keys and configuration variables required by `config.py`.
 
-Add the required API keys and configuration values according to your `config.py` and integrations.
+**Important:** Never upload your `.env` file or expose API keys on GitHub.
 
-**Security:** Never commit `.env` or API credentials to GitHub.
-
-### Step 5 — Run Application
+### 5. Run the Application
 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### Step 6 — Access API Documentation
+Open the API documentation:
 
-Open your browser:
+```text
+http://localhost:8000/docs
+```
 
-**http://localhost:8000/docs**
-
----
-
-# 🐳 Run Using Docker
+## 🐳 Docker Deployment
 
 ### 1. Build Docker Image
 
@@ -257,107 +142,74 @@ Open your browser:
 docker build -t rag-azure-app .
 ```
 
-### 2. Run Container
+### 2. Run Docker Container
 
 ```bash
 docker run -d -p 8000:8000 --env-file .env --name rag-container rag-azure-app
 ```
 
-### 3. Check Container Status
+### 3. Check Running Containers
 
 ```bash
 docker ps
 ```
 
-### 4. View Logs
+### 4. View Container Logs
 
 ```bash
 docker logs rag-container
 ```
 
-### 5. Stop Container
+### 5. Access Application
 
-```bash
-docker stop rag-container
-```
-
-### 6. Remove Container
-
-```bash
-docker rm rag-container
-```
-
-Access the application:
-
+```text
 http://localhost:8000/docs
-
----
-
-# 📸 Application Screenshots
-
-Add your actual application screenshots here after running the project.
-
-| Application Interface | API Documentation |
-|---|---|
-| Add application screenshot | Add Swagger UI screenshot |
-
-Example:
-
-```markdown
-![Application Interface](screenshots/home.png)
-
-![API Documentation](screenshots/swagger.png)
 ```
 
----
+## ☁️ Microsoft Azure Deployment
 
-# 🎯 What I Learned
+The project includes a Dockerfile configured for container-based deployment.
 
-- Understanding Retrieval-Augmented Generation (RAG).
-- Building modular Python applications.
-- Object-Oriented Programming principles.
-- Document processing and text chunking.
-- Working with embedding models.
-- Vector databases and semantic search.
-- Building REST APIs using FastAPI.
-- Docker image creation and container management.
-- Understanding cloud deployment architecture.
+Deployment workflow:
 
-# 🔮 Future Enhancements
+1. Build the Docker image.
+2. Test the container locally.
+3. Push the image to Azure Container Registry (ACR).
+4. Deploy the container using Azure Container Apps or Azure App Service.
+5. Configure environment variables and required secrets.
+6. Access the deployed application through its Azure endpoint.
 
-- Multi-format document support.
-- Conversational chat memory.
-- User authentication.
-- Improved retrieval accuracy.
-- RAG evaluation and monitoring.
-- Automated CI/CD pipelines.
-- Production-ready Azure deployment.
+## 🎯 Learning Outcomes
 
----
+Through this project, I explored:
 
-# 👨‍💻 About the Developer
+- Understanding Retrieval-Augmented Generation.
+- Building modular Python applications using OOP concepts.
+- Working with document processing and text chunking.
+- Implementing embeddings and vector search.
+- Developing APIs using FastAPI.
+- Containerizing applications using Docker.
+- Understanding cloud deployment workflows with Microsoft Azure.
+
+## 🔮 Future Improvements
+
+- Add authentication and user management.
+- Support additional document formats.
+- Improve retrieval accuracy.
+- Add chat history and conversational memory.
+- Implement monitoring and logging.
+- Add automated CI/CD deployment.
+
+## 👨‍💻 Author
 
 **Pratik Thakur**
 
 Aspiring Data Scientist | Python Developer | Generative AI Enthusiast
 
-Interested in:
-
-- Artificial Intelligence
-- Machine Learning
-- Generative AI
-- Retrieval-Augmented Generation
-- Python Development
-- Cloud Technologies
+Interested in Machine Learning, Generative AI, RAG Systems, and Cloud Technologies.
 
 ---
 
-<div align="center">
-
-### ⭐ If you like this project, give it a star!
+⭐ If you find this project interesting, consider giving it a star!
 
 **Built with ❤️ using Python, AI & Cloud Technologies.**
-
-</div>
- 
- 
